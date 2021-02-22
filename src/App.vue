@@ -1,17 +1,34 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>To-Do List:</h1>
+    <ul>
+      <li v-for="(task, index) in tasks" :key="index">
+        <span>{{task}}</span>
+      </li>
+    </ul>
+
+    <form v-on:submit.prevent="saveNewTask">
+      <label for="new-task">Add task:</label>
+      <input type="text" id="new-task" v-model="newTask">
+      <input type="submit" value="Save">
+    </form>
+
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  data(){
+    return {
+      tasks: ["Finish homework", "Make dinner", "Have a beer"],
+      newTask: ""
+    }
+  },
+  methods: {
+    saveNewTask: function() {
+      this.tasks.push(this.newTask)
+      this.newTask = ""
+    }
   }
 }
 </script>
@@ -24,5 +41,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+li {
+  list-style: none;
 }
 </style>
